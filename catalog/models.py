@@ -21,7 +21,7 @@ class Products(models.Model):
     articul = models.CharField(max_length=100, blank=False, unique=True, null=False, verbose_name='Артикул')
     price = models.DecimalField(default=0.00, max_digits=8, decimal_places=2, verbose_name='Цена')
     image = models.ImageField(upload_to='goods_images', blank=True, null=True, verbose_name='Изображение')
-    supplier = models.ForeignKey(Suppliers, on_delete=models.CASCADE, verbose_name='Категория')
+    supplier = models.ForeignKey(Suppliers, on_delete=models.CASCADE, verbose_name='Поставщик')
 
     class Meta:
         db_table = 'product'
