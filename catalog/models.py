@@ -20,6 +20,7 @@ class Products(models.Model):
     slug = models.SlugField(max_length=200, unique=True, blank=True, null=True, verbose_name='URL')
     articul = models.CharField(max_length=100, blank=False, unique=True, null=False, verbose_name='Артикул')
     price = models.DecimalField(default=0.00, max_digits=8, decimal_places=2, verbose_name='Цена')
+    quantity = models.PositiveIntegerField(default=0, verbose_name="Количество")
     image = models.ImageField(upload_to='goods_images', blank=True, null=True, verbose_name='Изображение')
     supplier = models.ForeignKey(Suppliers, on_delete=models.CASCADE, verbose_name='Поставщик')
 

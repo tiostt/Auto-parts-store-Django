@@ -56,12 +56,16 @@
                 </div>
             </div>
             <div class='profile-container'>
-                {% if not user.is_authenticated %}
-                    <a href="{% url "user:login" %}">АВТОРИЗАЦИЯ/ВХОД</a>
-                {% else %}
-                    <a href="{% url "user:basket" %}">{{ user.username }}</a> /
-                    <a href="{% url 'user:logout' %}">Выйти</a>
-                {% endif %}
+                    {% if not user.is_authenticated %}
+                        <a href='{% url "user:login" %}'>АВТОРИЗАЦИЯ/ВХОД</a>
+                    {% else %}
+                        {% if user.is_superuser or user.is_staff %}
+                            <a href="{% url 'admin:index' %}">Админ-панель</a> /
+                        {% else %}
+                            <a href="{% url 'user:basket' %}">{{ user.username }}</a> /    
+                        {% endif %}
+                        <a href="{% url 'user:logout' %}">Выйти</a>
+                    {% endif %}
             </div>
         </div>
     
@@ -186,16 +190,43 @@
                             <div class="delivery-form">
                                 <!-- Форма для доставки -->
                                 <h2>Доставка</h2>
-                                <form action="" method="post">
-    
+                                <form action="{% url "orders:create_order" %}" method="post" class="delivery-container">
+                                    {% csrf_token %}
+                                    <div class="delivery-items">
+                                        <label for="id_phone_number">Номер телефона</label>
+                                        <input type="tel" id="id_phone_number" name="phone_number" required>
+                                        {% if form.phone_number.errors %} {{ form.phone_number.errors }} {% endif %}
+                                    </div>
+
+                                    <div class="delivery-items">
+                                        <label for="id_delivery_address">Адрес доставки</label>
+                                        <input type="text" id="id_delivery_address" name="delivery_address" required>
+                                        {% if form.delivery_address.errors %} {{ form.delivery_address.errors }} {% endif %}
+                                    </div>
+
+                                    <div class="delivery-items">
+                                        <button type="submit">Оформить заказ</button>
+                                    </div>
+                                    <label for="">Оплата осуществляется наличными или картой при получении</label>
+
                                 </form>
                             </div>
     
                             <div class="pickup-form">
                                 <!-- Форма для самовывоза -->
                                 <h2>Самовывоз</h2>
-                                <form action="" method="post">
-    
+                                <form action="{% url "orders:create_order" %}" method="post">
+                                    {% csrf_token %}
+                                    <div class="delivery-items">
+                                        <label for="id_phone_number">Номер телефона</label>
+                                        <input type="tel" id="id_phone_number" name="phone_number" required>
+                                        {% if form.phone_number.errors %} {{ form.phone_number.errors }} {% endif %}
+                                    </div>
+
+                                    <div class="delivery-items">
+                                        <button type="submit">Оформить заказ</button>
+                                    </div>
+                                    <label for="">Оплата осуществляется наличными или картой при получении</label>
                                 </form>
                             </div>
                         </div>
@@ -213,6 +244,7 @@
 <script src="{% static "js/jquery/jquery-3.7.0.min.js" %}"></script>
 <script src="{% static "js/jquery-ajax.js" %}"></script>
 <script src="{% static "js/app.js" %}"></script>
+<script src="https://unpkg.com/imask@6/dist/imask.min.js"></script>
 
 <script>
     function closeNotification(button) {

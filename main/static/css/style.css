@@ -78,7 +78,7 @@ body {
 }
 .profile-container{
     background-color: #FF7400;
-    width: 190px;
+    width: 200px;
     height: 33px;
     border-radius: 10px;
     text-align: center;
@@ -1215,4 +1215,51 @@ button {
 
 .total-quantity>h3{
     margin-left: 10px;
+}
+
+/* delivery */
+
+.delivery-container{
+    display: flex;
+    flex-direction: column;
+    min-width: 100%;
+}
+
+.delivery-items{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+    margin-left: 55px;
+}
+
+.delivery-items>input{
+    height: 30px;
+    width: 430px;
+    font-size: 16px;
+    box-shadow: 2px 2px 5px rgb(160, 160, 160);
+    border-radius: 10px;
+}
+
+.delivery-items>button{
+    height: 50px;
+    width: 230px;
+    font-size: 16px;
+    box-shadow: 2px 2px 5px rgb(160, 160, 160);
+    border-radius: 10px;
+    
+    margin-left: 100px;
+    margin-top: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+
+    background-color: #37a23a;
+    border: 2px solid #357636;
+    color: white;
+    font-size: 18px;
+
+    transition: background-color 0.3s;
+}
+
+.delivery-items>button:hover{
+    background-color: #357636;
 }
