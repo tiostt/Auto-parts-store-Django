@@ -12,28 +12,34 @@ from catalog.models import Products
 
 
 def basket_add(request):
-    
-    product_id = request.POST.get("product_id")
-    product = Products.objects.get(id=product_id)
-
     if request.user.is_authenticated:
-        basket = Basket.objects.filter(user=request.user, product=product)
+        product_id = request.POST.get("product_id")
+        product = Products.objects.get(id=product_id)
 
-        if basket.exists():
-            basket = basket.first()
-            if basket:
-                basket.quantity += 1
-                basket.save()
+        if request.user.is_authenticated:
+            basket = Basket.objects.filter(user=request.user, product=product)
 
-        else:
-            Basket.objects.create(user=request.user, product=product, quantity=1)
+            if basket.exists():
+                basket = basket.first()
+                if basket:
+                    basket.quantity += 1
+                    basket.save()
+
+            else:
+                Basket.objects.create(user=request.user, product=product, quantity=1)
 
 
-    response_data = {
-        "message": f"Товар \"{product.name}\" добавлен в корзину",
-    }
+        response_data = {
+            "message": f"Товар \"{product.name}\" добавлен в корзину",
+        }
 
-    return JsonResponse(response_data)
+        return JsonResponse(response_data)
+    else:
+        response_data = {
+            "message": f"Сначала необходимо авторизаваться, чтобы добавить товар в корзину.",
+        }
+
+        return JsonResponse(response_data)
 
 
 def basket_change(request):

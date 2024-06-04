@@ -190,9 +190,8 @@
 <script>
     function closeNotification(button) {
         const notification = button.parentElement;
-        notification.style.opacity = 0;
         setTimeout(() => {
-            notification.remove();
+            notification.style.display = "none";
         }, 500); 
     }
 
@@ -205,7 +204,7 @@
                 notification.remove();
             }, 500);
         });
-    }, 7000);
+    }, 3000);
 </script>
 
 </body>
