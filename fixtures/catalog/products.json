@@ -1,0 +1,74 @@
+[
+    {
+        "model": "catalog.products",
+        "pk": 1,
+        "fields": {
+            "name": "КРЫЛО ПЕРЕДНЕЕ УАЗ ПРОФИ ЛЕВОЕ",
+            "slug": "krylo-perednee-uaz-profi-levoe",
+            "articul": "2360-00-8403011-10",
+            "price": "122130.00",
+            "image": "goods_images/krylouaz.jpeg",
+            "supplier": 1
+        }
+    },
+    {
+        "model": "catalog.products",
+        "pk": 2,
+        "fields": {
+            "name": "ЛАМПА 24V-21W (белая)",
+            "slug": "lampa-24v-21w-belaya",
+            "articul": "62413",
+            "price": "0.00",
+            "image": "goods_images/4523.650.jpg",
+            "supplier": 3
+        }
+    },
+    {
+        "model": "catalog.products",
+        "pk": 3,
+        "fields": {
+            "name": "Термостат",
+            "slug": "termostat",
+            "articul": "4360-00-84543511-10",
+            "price": "6503.99",
+            "image": "goods_images/termostat.jpg",
+            "supplier": 1
+        }
+    },
+    {
+        "model": "catalog.products",
+        "pk": 4,
+        "fields": {
+            "name": "Фильтр воздушный",
+            "slug": "filtr-vozdushnyj",
+            "articul": "62413-3213-123-876",
+            "price": "2401.98",
+            "image": "goods_images/filter.jpeg",
+            "supplier": 2
+        }
+    },
+    {
+        "model": "catalog.products",
+        "pk": 5,
+        "fields": {
+            "name": "Фильтр воздушный",
+            "slug": "filtr-vozdushnyj-Barnaul",
+            "articul": "62643-3413-6456-876",
+            "price": "3490.00",
+            "image": "goods_images/filter2.webp",
+            "supplier": 3
+        }
+    },
+    {
+        "model": "catalog.products",
+        "pk": 6,
+        "fields": {
+            "name": "Датчик температуры",
+            "slug": "datchik-temperatury",
+            "articul": "232132-323-23432",
+            "price": "3452.00",
+            "image": "goods_images/datchik.jpeg",
+            "supplier": 1
+        }
+    }
+]

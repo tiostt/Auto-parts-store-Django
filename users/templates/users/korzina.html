@@ -1,0 +1,276 @@
+{% load static %}
+{% load basket_tags %}
+
+{% user_basket request as baskets %}
+
+<!DOCTYPE html>
+<html lang="en" id="cart-items-container">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tinos:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital@1&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Корзина</title>
+</head>
+<body>
+    
+<div class="container-body">
+        
+    <!--<div class='header'>-->
+    <div class='poloska'>
+    <div class='container'>
+    
+        <div class='header-line'>
+            <div class='header-logo'>
+                <img src="{% static 'img/logogo.png' %}" alt="">
+            </div>
+            <div class='nav'>
+                <a class='nav-item' href="{% url "main:index" %}">ГЛАВНАЯ</a>
+                <a class='nav-item' href="{% url "catalog:index" %}">ПРАЙС</a>
+                <a class='nav-item' href="@">О НАС</a>
+                <a class='nav-item' href="@">КОНТАКТЫ</a>
+    
+            </div>
+            <div class='cart'>
+                <a href="{% url "user:basket" %}">
+                    <img class='cart-img' src="{% static "img/cart.png" %}" alt="">
+                </a>
+            </div>
+            <div class='phone'>
+                <div class='phone-holder'>
+                    <div class='phone-img'>
+                        <img src="{% static 'img/phone.png' %}" alt="">
+                    </div>
+                    <div class='number'><a class='num' href='#'>+999-888-76-54</a></div>
+                </div>
+                <div class='phone-text'>
+    
+                </div>
+            </div>
+            <div class='profile-container'>
+                {% if not user.is_authenticated %}
+                    <a href="{% url "user:login" %}">АВТОРИЗАЦИЯ/ВХОД</a>
+                {% else %}
+                    <a href="{% url "user:basket" %}">{{ user.username }}</a> /
+                    <a href="{% url 'user:logout' %}">Выйти</a>
+                {% endif %}
+            </div>
+        </div>
+    
+    </div>
+    </div>
+       
+    
+    {% include "includes/notifications.html" %}
+    <div class="container-parent">  
+        <div class="container-bapro">
+            <div class="container-profail">
+                <div class="content-profail">
+                    <form action="{% url 'user:basket' %}" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="profile-picture">
+                            {% if user.image %}
+                                <img src="{{ user.image.url }}" alt="Profile Picture">
+                            {% else %}
+                                <img src="{% static "img/profile.png" %}" alt="Profile Picture">
+                            {% endif %}
+                        </div>
+                        
+                        <div class="upload-button">
+                            <label for="id_image">
+                                <input type="file" id="id_image" name="image" accept="image/*">{% comment %} upload-input {% endcomment %}
+                                <span>Загрузить фото</span>
+                                {% if form.image.errors %} {{ form.image.errors }} {% endif %}
+                            </label>
+                        </div>
+                        
+                        <div class="profile-items">
+                            <label for="" id="id_first_name">Имя</label>
+                            <input type="text" id="id_first_name" name="first_name" value="{{ form.first_name.value }}" required>
+                            {% if form.first_name.errors %} {{ form.first_name.errors }} {% endif %}
+                        </div>
+                        <div class="profile-items">
+                            <label for="" id="id_last_name">Фамилия</label>
+                            <input type="text" id="id_last_name" name="last_name" value="{{ form.last_name.value }}" required>
+                            {% if form.last_name.errors %} {{ form.last_name.errors }} {% endif %}
+                        </div>
+                        <div class="profile-items">
+                            <label for="" id="id_username">Username</label>
+                            <input type="text" id="id_username" name="username" value="{{ form.username.value }}" required>
+                            {% if form.username.errors %} {{ form.username.errors }} {% endif %}
+                        </div>
+                        <div class="profile-items">
+                            <label for="" id="id_email">Email</label>
+                            <input type="email" id="id_email" name="email" value="{{ form.email.value }}" required>
+                            {% if form.email.errors %} {{ form.email.errors }} {% endif %}
+                        </div>
+
+                        <div class="profile-items">
+                            <button type="submit">Применить</button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+            <div class="container-basket">
+                <h1>Корзина</h1>
+                <div class="content-basket">
+                    {% if baskets %}
+                        <button onclick="showorders()">Оформить заказ</button>
+                    {% endif %}
+                    <div class="card1">
+                        <div class="total-quantity">
+                            <p>Итого: {{ baskets.total_quantity}} товар(а) на сумму - </p>
+                            <h3>  {{ baskets.total_price }}₽</h3>
+                        </div>
+                    </div>
+{% comment %}aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa  {% endcomment %}
+                    {% for basket in baskets %}
+                        <div class="card1">
+                            <div class="img-basket">
+                                <img src="{{ basket.product.image.url }}" alt="" onclick="window.location.href = '{% url 'catalog:product' basket.product.slug %}';" onmouseover="this.style.cursor='pointer';">
+                                <p onclick="window.location.href = '{% url 'catalog:product' basket.product.slug %}';" onmouseover="this.style.cursor='pointer';">
+                                {{ basket.product.name }} <br> арт.{{ basket.product.articul }}
+                                </p>
+                            </div>
+
+
+                            <div class="total-price">
+
+                                <button type="button" class="add-item-basket decrement"
+                                data-cart-id="{{ basket.id }}"
+                                data-cart-change-url="{% url "basket:basket_change" %}">
+                                {% csrf_token %} 
+                                &lt;</button>
+
+                                <input type="text" class="btn-basket number" value="{{ basket.quantity }}" readonly>
+                                
+                                <button type="button" class="add-item-basket increment"
+                                data-cart-id="{{ basket.id }}"
+                                data-cart-change-url="{% url "basket:basket_change" %}">
+                                {% csrf_token %} 
+                                &gt;</button>
+
+                                <p>x  {{ basket.product.price }}₽</p>
+                                
+                                <div class="total-price-basket">
+                                    <p>=  {{ basket.product_price }}₽</p>
+                                </div>
+                            </div>
+
+                            <div class="delete-basket">
+                                <a href="{% url "basket:basket_remove" %}" class="remove-from-cart" 
+                                data-basket-id="{{ basket.id }}">
+                                    {% csrf_token %}
+                                    <img src="{% static 'img/delete.jpg' %}" alt="">
+                                </a>
+                            </div>
+                        </div>
+                    {% endfor %}
+{% comment %}aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa  {% endcomment %}    
+                        
+                        {% comment %} форма заказа {% endcomment %}
+                        <div class="orders-container">
+                            <span class="close-button" onclick="closeorders(this)">×</span><br>
+                            <button onclick="showDeliveryForm()">Доставка</button>
+                            <button onclick="showPickupForm()">Самовывоз</button>
+                            
+                            <div class="delivery-form">
+                                <!-- Форма для доставки -->
+                                <h2>Доставка</h2>
+                                <form action="" method="post">
+    
+                                </form>
+                            </div>
+    
+                            <div class="pickup-form">
+                                <!-- Форма для самовывоза -->
+                                <h2>Самовывоз</h2>
+                                <form action="" method="post">
+    
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class='footer'>
+    Copyright 2022
+    </div>
+</div>
+
+
+<script src="{% static "js/jquery/jquery-3.7.0.min.js" %}"></script>
+<script src="{% static "js/jquery-ajax.js" %}"></script>
+<script src="{% static "js/app.js" %}"></script>
+
+<script>
+    function closeNotification(button) {
+        const notification = button.parentElement;
+        notification.style.opacity = 0;
+        setTimeout(() => {
+            notification.remove();
+        }, 500); 
+    }
+
+    // Автоматическое  закрытие  через  7  секунд
+    setTimeout(() => {
+        const notifications = document.querySelectorAll('.notification');
+        notifications.forEach(notification => {
+            notification.style.opacity = 0;
+            setTimeout(() => {
+                notification.remove();
+            }, 500);
+        });
+    }, 7000);
+</script>
+
+<script>
+    const uploadInput = document.getElementById('id_image');
+    const profilePicture = document.querySelector('.profile-picture img');
+
+    uploadInput.addEventListener('change', function(event) {
+      if (event.target.files && event.target.files[0]) {
+        const reader = new FileReader();
+
+        reader.onload = function(e) {
+          profilePicture.src = e.target.result;
+        }
+
+        reader.readAsDataURL(event.target.files[0]);
+      }
+    });
+</script>
+
+<script>
+    function showorders() {
+      document.querySelector('.orders-container').style.display = 'block';
+    }
+
+    function closeorders(closeButton) {
+      closeButton.parentNode.style.display = 'none';
+    }
+
+    function showDeliveryForm() {
+      document.querySelector('.delivery-form').style.display = 'block';
+      document.querySelector('.pickup-form').style.display = 'none';
+    }
+
+    function showPickupForm() {
+      document.querySelector('.pickup-form').style.display = 'block';
+      document.querySelector('.delivery-form').style.display = 'none';
+    }
+</script>
+
+</body>
+</html>

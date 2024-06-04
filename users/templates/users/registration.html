@@ -1,0 +1,82 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel='stylesheet' href='{% static 'css/stylevhod.css' %}'>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tinos:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital@1&display=swap" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Авторизация/Вход</title>
+
+</head>
+
+<body>
+
+    <div class="wrapper">
+        <form action="{% url 'user:registration' %}" method="post">
+            {% csrf_token %}
+            <a href="{% url "main:index" %}">&larr;</a>
+            <h1>Регистрация</h1>
+
+            <div class="input-box">
+                <input type="text" placeholder="Ваше имя" id="id_first_name" name="first_name" 
+                value="{% if form.first_name.value %}{{ form.first_name.value }}{% endif %}" required>
+                {% if form.first_name.errors %} {{ form.first_name.errors }} {% endif %}
+            </div>
+            
+            <div class="input-box">
+                <input type="text" placeholder="Ваше фамилия" id="id_last_name" name="last_name" 
+                value="{% if form.last_name.value %}{{ form.last_name.value }}{% endif %}" required>
+                {% if form.last_name.errors %} {{ form.last_name.errors }} {% endif %}
+            </div>
+            
+            <div class="input-box">
+                <input type="text" placeholder="Имя пользователя" id="id_username" name="username" 
+                value="{% if form.username.value %}{{ form.username.value }}{% endif %}" required>
+                {% if form.username.errors %} {{ form.username.errors }} {% endif %}
+            </div>
+
+            <div class="input-box">
+                <input type="text" placeholder="email" id="id_email" name="email"
+                value="{% if form.email.value %}{{ form.email.value }}{% endif %}" required>
+                {% if form.email.errors %} {{ form.email.errors }} {% endif %}
+            </div>
+
+            <div class="input-box">
+                <input type="password" placeholder="Введите пароль" id="id_password1" name="password1"
+                value="{% if form.password1.value %}{{ form.password1.value }}{% endif %}" required>
+                {% if form.password1.errors %} {{ form.password1.errors }} {% endif %}
+            </div>
+
+            <div class="input-box">
+                <input type="password" placeholder="Повторите пароль" id="id_password2" name="password2"
+                value="{% if form.password2.value %}{{ form.password2.value }}{% endif %}" required>
+                {% if form.password2.errors %} {{ form.password2.errors }} {% endif %}
+            </div>
+
+            <button type="submit" class="btn">Зарегистрироваться</button>
+
+            <div class="register-link">
+                <p>Вы уже зарегистрированы? <a href="{% url 'user:login' %}">Авторизация</a></p>
+            </div>
+
+        </form>
+    </div>
+
+    <script src='{% static 'js/app.js' %}'></script>
+
+</body>
+
+</html>

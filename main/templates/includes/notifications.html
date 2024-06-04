@@ -1,0 +1,16 @@
+{% load static %}
+
+
+<div id="notification-container">
+    {% if messages %}
+        {% for message in messages %}
+            <div class="notification {% if message.tags == 'error' %}error{% elif message.tags == 'success' %}success{% endif %}">
+                <span class="close-button" onclick="closeNotification(this)">×</span><br>
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% else %}    
+    <div class="notification1" id="jq-notification" style="display: none;"> <span class="close-button" onclick="closeNotification(this)">×</span><br>
+    </div>
+    {% endif %}
+</div>

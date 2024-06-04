@@ -1,0 +1,62 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel='stylesheet' href='{% static 'css/stylevhod.css' %}'>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tinos:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital@1&display=swap" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Авторизация/Вход</title>
+
+</head>
+
+<body>
+
+    <div class="wrapper">
+        <form action="{% url 'user:login' %}" method="post">
+            <a href="{% url "main:index" %}">&larr;</a>
+            <h1>Вход</h1>
+            {% csrf_token %}
+            
+            {% if request.GET.next %}
+                <input type="hidden" name="next" value={{request.GET.next}}>
+            {% endif %}
+            
+            <div class="input-box">
+                {{ form.username }}
+            </div>
+
+            <div class="input-box">
+                {{ form.password }}
+            </div>
+
+                {% comment %} вывод ошибки {% endcomment %}
+                {% if form.non_field_errors %}
+                <p>{{ form.non_field_errors }}</p>
+                {% endif %}
+                {% comment %}  {% endcomment %}
+            <button type="submit" class="btn">Войти</button>
+            <div class="register-link">
+                <p>У вас нет учетной записи? <a href="{% url "user:registration" %}">Регистрация</a></p>
+            </div>
+
+        </form>
+    </div>
+
+    <script src='{% static 'js/app.js' %}'></script>
+
+</body>
+
+</html>

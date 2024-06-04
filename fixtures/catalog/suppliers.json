@@ -1,0 +1,23 @@
+[
+    {
+        "model": "catalog.suppliers",
+        "pk": 1,
+        "fields": {
+            "name": "КАМАЗ 65115-A5"
+        }
+    },
+    {
+        "model": "catalog.suppliers",
+        "pk": 2,
+        "fields": {
+            "name": "Барнаул"
+        }
+    },
+    {
+        "model": "catalog.suppliers",
+        "pk": 3,
+        "fields": {
+            "name": "Томск"
+        }
+    }
+]
