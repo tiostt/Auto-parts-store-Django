@@ -4,6 +4,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.urls import reverse
 
+from orders.models import Order
 from users.forms import ProfileForm, UserLoginForm, UserRegistrarionForm
 
 
@@ -60,10 +61,11 @@ def basket(request):
     else:
         form = ProfileForm(instance=request.user)
     
+    order = Order.objects.filter(user=request.user)
     
-
     context = {
-        'form': form
+        'form': form,
+        'orders': order
     }
 
     return render(request, 'users/korzina.html', context)

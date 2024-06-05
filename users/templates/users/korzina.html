@@ -123,6 +123,27 @@
 
                     </form>
                 </div>
+
+                {% if orders %}
+                    <h1>Заказы:</h1>
+                    
+                    {% for order in orders %}
+                        <div class="conteiner-orders">
+
+                            <div class="cart-item-orders">
+                                <p>Заказ № {{ order.id }}</p>
+                                <div>
+                                    {% for orderitem in order.orderitem_set.all %}
+                                        <p>{{ orderitem.name }} ({{ orderitem.quantity }} шт.)</p>
+                                    {% endfor %}
+                                </div>
+                                <p>12.05.2004</p>
+                            </div>
+                        </div>
+                    {% endfor %}
+
+                {% endif %}
+
             </div>
             <div class="container-basket">
                 <h1>Корзина</h1>
@@ -136,7 +157,7 @@
                             <h3>  {{ baskets.total_price }}₽</h3>
                         </div>
                     </div>
-{% comment %}aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa  {% endcomment %}
+                    {% comment %}aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa  {% endcomment %}
                     {% for basket in baskets %}
                         <div class="card1">
                             <div class="img-basket">
@@ -179,7 +200,7 @@
                             </div>
                         </div>
                     {% endfor %}
-{% comment %}aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa  {% endcomment %}    
+                    {% comment %}aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa  {% endcomment %}    
                         
                         {% comment %} форма заказа {% endcomment %}
                         <div class="orders-container">

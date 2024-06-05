@@ -75,5 +75,6 @@ def create_order(request):
             except ValidationError as e:
                 messages.success(request, str(e))
                 return redirect('user:basket')
-            
+        else:
+            messages.success(request, f"{form.errors['phone_number']}")  
     return redirect('user:basket')

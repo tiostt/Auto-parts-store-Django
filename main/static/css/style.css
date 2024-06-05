@@ -995,7 +995,7 @@ button {
 
 .container-profail {
     width: 400px;
-    max-height: 800px;
+    max-height: max-content;
     box-shadow: 2px 2px 5px black;
     border-radius: 3px;
 }
@@ -1056,6 +1056,32 @@ button {
     position: absolute;
     opacity: 0;
     cursor: pointer;
+}
+
+
+/* заказы */
+.conteiner-orders{
+    padding: 20px;
+    border-top: 1px solid rgb(161, 161, 161);
+}
+.container-profail>h1{
+    margin-left: 20px;
+}
+.cart-item-orders{
+    display: flex;
+    justify-content: space-between;
+
+    border-radius: 6px;
+    padding: 10px;
+    box-shadow: 2px 2px 5px black;
+}
+
+.cart-item-orders>div{
+    margin-left: 10px;
+    word-wrap: break-word;
+    border-radius: 4px;
+    padding: 6px;
+    box-shadow: inset 1px 2px 6px rgb(202, 202, 202);
 }
 
 /* товары в корзине */
