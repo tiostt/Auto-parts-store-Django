@@ -38,10 +38,8 @@
                     <div class='nav'>
                         <a class='nav-item' href="{% url "main:index" %}">ГЛАВНАЯ</a>
                         <a class='nav-item' href="{% url "catalog:index" %}">ПРАЙС</a>
-                        <a class='nav-item' href="@">О НАС</a>
-                        <a class='nav-item' href="@">КОНТАКТЫ</a>
-    
-    
+                        <a class="nav-item" href="{% url "main:index" %}#cards">О НАС</a>
+                        <a class="nav-item" href="{% url "main:index" %}#contact">КОНТАКТЫ</a>
                     </div>
     
                     <div class='cart'>

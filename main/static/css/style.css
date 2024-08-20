@@ -17,11 +17,17 @@ body {
     background: #000; /*фоновый цвет*/
     bottom: 10px;
 }
-
-.container {
-    margin: 10px 150px;
+.contact-info{
+    width: 100%;
 }
-
+.info-container {
+    display: flex;
+    margin-left: 170px;
+    align-items: center;
+}
+.maps-container{
+    margin-bottom: 100px;
+}
 .header {
     background-image: url(../img/fon.jpg);
     height: 650px;
@@ -38,6 +44,7 @@ body {
     align-items: center;
     justify-content: space-around ;
     margin-right: 55px;
+    padding-top: 10px;
 }
 
 .nav-item {
@@ -206,6 +213,8 @@ body {
     display: flex;
     justify-content: center;
     padding-top: 31px;
+    width: 100px;
+    margin-left: 115px;
 }
 
 .card-title {
@@ -241,8 +250,21 @@ body {
 }
 
 .history {
-    margin-top: 80px;
+    margin-top: 250px;
     padding-bottom: 200px;
+    
+}
+.history-container{
+    display: flex;
+    align-items: center;
+    margin-left: 140px;
+}
+.info-container{
+    display: flex;
+    margin-left: 220px;
+}
+.history-container>img{
+    height: 300px;
 }
 
 .history-title {
@@ -251,7 +273,6 @@ body {
     font-weight: 300;
     width: 420px;
     text-align: center;
-    margin-top: 200px;
 }
 
 .history-title span {
@@ -300,6 +321,8 @@ body {
 .contact {
     margin-top: 10px;
     padding-bottom: 300px;
+    display: flex;
+
 }
 
 .contact-title {
